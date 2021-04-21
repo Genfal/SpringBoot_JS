@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users View</title>
+</head>
+<body>
+<center>
+    <th:block th:each="user : ${user}">
+        <h1>Name: ${user.name}</h1>
+        <h1>LastName: ${user.lastName}</h1>
+        <h1>Age: ${user.age}</h1>
+    </th:block>
+</center>
+</body>
+</html>
