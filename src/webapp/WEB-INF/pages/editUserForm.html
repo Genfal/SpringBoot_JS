@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>EditUser</title>
+</head>
+<body>
+<div align="center">
+    <form action="editUser">
+        <input type="hidden" name="id" th:value="${user.getID}">
+        <table border="1px">
+            <tr>
+                <td>Имя</td>
+                <td><input type="text" name="name" th:value="${user.getName}" placeholder="Введите имя"></td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td><input type="text" name="lastName" th:value="${user.getLastName}" placeholder="Введите фамилию"></td>
+            </tr>
+            <tr>
+                <td>Возраст</td>
+                <td><input type="text" name="age" th:value="${user.getAge}" placeholder="Введите возраст"></td>
+            </tr>
+        </table>
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+</body>
+</html>
