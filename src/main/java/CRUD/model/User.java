@@ -1,15 +1,14 @@
-package Hibernate.model;
+package CRUD.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long ID;
 
     @Column(name = "Name")
@@ -61,5 +60,15 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

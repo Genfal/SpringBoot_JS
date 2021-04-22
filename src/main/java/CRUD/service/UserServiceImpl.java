@@ -1,7 +1,7 @@
-package Hibernate.service;
+package CRUD.service;
 
-import Hibernate.dao.UserDAOImpl;
-import Hibernate.model.User;
+import CRUD.dao.UserDAO;
+import CRUD.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +10,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService{
 
-    private UserDAOImpl userDAO = new UserDAOImpl();
-
-    {
-        System.out.println("UserDAOImpl link: " + userDAO);
-    }
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
-    public void remove(User user) {
-        userDAO.remove(user);
+    public void remove(long ID) {
+        userDAO.remove(ID);
     }
 
     @Override
@@ -27,7 +24,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserByID(int ID) {
+    public void update(User user) {
+        userDAO.update(user);
+    }
+
+    @Override
+    public User getUserByID(long ID) {
         return userDAO.getUserByID(ID);
     }
 

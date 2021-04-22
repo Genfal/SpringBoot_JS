@@ -21,6 +21,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="CRUDapp" value="776b92d6-ee0c-4cfa-a392-29eb48f2ea0b" />
+          <factory-entry name="getEntityManagerFactory" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -31,9 +32,13 @@
           <file>file://$MODULE_DIR$/src/main/java/Web/Config/WebConfig.java</file>
         </fileset>
         <fileset id="initializer Web.Config.AppInit root context" name="MVC dispatcher initializer root context" removed="true" />
-        <fileset id="fileset" name="Spring Application Context(2)" removed="false">
-          <file>file://$MODULE_DIR$/src/main/java/Hibernate/config/AppConfig.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/Web/Config/WebConfig.java</file>
+        <fileset id="initializer CRUD.config.AppInit servlet context" name="MVC dispatcher initializer servlet context" removed="true">
+          <file>file://$MODULE_DIR$/src/main/java/CRUD/config/WebConfig.java</file>
+        </fileset>
+        <fileset id="initializer CRUD.config.AppInit root context" name="MVC dispatcher initializer root context" removed="true" />
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/CRUD/config/HibernateConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/CRUD/config/WebConfig.java</file>
         </fileset>
       </configuration>
     </facet>
@@ -91,5 +96,7 @@
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:1.8" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.23" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
   </component>
 </module>

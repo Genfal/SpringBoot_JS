@@ -5,12 +5,32 @@
     <title>Users View</title>
 </head>
 <body>
-<center>
-    <th:block th:each="user : ${user}">
-        <h1>Name: ${user.name}</h1>
-        <h1>LastName: ${user.lastName}</h1>
-        <h1>Age: ${user.age}</h1>
-    </th:block>
-</center>
+<div align="center">
+    <form action="addUserForm">
+        <button style="background: cyan">Добавить пользователя</button>
+    </form>
+    <table border="1px" style="margin-top: 20px">
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>LastName</td>
+            <td>Age</td>
+        </tr>
+        <tr th:each="u : ${users}">
+            <td><p th:text="${u.getID}"/></td>
+            <td><p th:text="${u.getName}"/></td>
+            <td><p th:text="${u.getLastName}"/></td>
+            <td><p th:text="${u.getAge}"/></td>
+            <td>
+                <form action="editUserForm">
+                    <button name="id" th:value="${u.getID}" style="background: greenyellow">Изменить пользователя</button>
+                </form>
+                <form action="removeUser">
+                    <button name="id" th:value="${u.getID}" style="background: red">Удалить пользователя</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

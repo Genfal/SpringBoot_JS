@@ -1,4 +1,4 @@
-package Web.Config;
+package CRUD.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("Web")
+@ComponentScan("CRUD")
 public class WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
