@@ -22,6 +22,7 @@
         <datasource-mapping>
           <factory-entry name="CRUDapp" value="776b92d6-ee0c-4cfa-a392-29eb48f2ea0b" />
           <factory-entry name="getEntityManagerFactory" />
+          <factory-entry name="getLocalContainerEntityManagerFactoryBean" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

@@ -6,20 +6,20 @@
 </head>
 <body>
 <div align="center">
-    <form action="editUser">
-        <input type="hidden" name="id" th:value="${user.getID}">
+    <form th:method="PATCH" th:action="@{/editUser}" th:object="${user}">
         <table border="1px">
+            <input type="hidden" th:field="*{ID}">
             <tr>
                 <td>Имя</td>
-                <td><input type="text" name="name" th:value="${user.getName}" placeholder="Введите имя"></td>
+                <td><input type="text" placeholder="Введите имя" th:field="*{name}"></td>
             </tr>
             <tr>
                 <td>Фамилия</td>
-                <td><input type="text" name="lastName" th:value="${user.getLastName}" placeholder="Введите фамилию"></td>
+                <td><input type="text" placeholder="Введите фамилию" th:field="*{lastName}"></td>
             </tr>
             <tr>
                 <td>Возраст</td>
-                <td><input type="text" name="age" th:value="${user.getAge}" placeholder="Введите возраст"></td>
+                <td><input type="text" placeholder="Введите возраст" th:field="*{age}"></td>
             </tr>
         </table>
         <button type="submit">Изменить</button>

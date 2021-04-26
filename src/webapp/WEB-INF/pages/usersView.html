@@ -22,11 +22,11 @@
             <td><p th:text="${u.getLastName}"/></td>
             <td><p th:text="${u.getAge}"/></td>
             <td>
-                <form action="editUserForm">
-                    <button name="id" th:value="${u.getID}" style="background: greenyellow">Изменить пользователя</button>
+                <form th:action="@{/editUserForm/{id}(id = ${u.getID})}">
+                    <button style="background: greenyellow">Изменить пользователя</button>
                 </form>
-                <form action="removeUser">
-                    <button name="id" th:value="${u.getID}" style="background: red">Удалить пользователя</button>
+                <form th:method="DELETE" th:action="@{/removeUser/{id}(id = ${u.getID})}">
+                    <button style="background: red">Удалить пользователя</button>
                 </form>
             </td>
         </tr>

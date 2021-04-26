@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>AddUser</title>
 </head>
 <body>
 <div align="center">
-    <form action="addUser">
+    <form th:method="POST" th:action="@{/addUser}" th:object="${user}">
         <table border="1px">
             <tr>
                 <td>Имя</td>
-                <td><input type="text" name="name" placeholder="Введите имя"></td>
+                <td><input type="text" placeholder="Введите имя" th:field="*{name}"></td>
             </tr>
             <tr>
                 <td>Фамилия</td>
-                <td><input type="text" name="lastName" placeholder="Введите фамилию"></td>
+                <td><input type="text" placeholder="Введите фамилию" th:field="*{lastName}"></td>
             </tr>
             <tr>
                 <td>Возраст</td>
-                <td><input type="text" name="age" placeholder="Введите возраст"></td>
+                <td><input type="text" placeholder="Введите возраст" th:field="*{age}"></td>
             </tr>
         </table>
         <button type="submit">Создать</button>
