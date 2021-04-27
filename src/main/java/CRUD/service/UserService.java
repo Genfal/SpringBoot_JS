@@ -10,4 +10,5 @@ public interface UserService {
     void update(User user);
     List<User> listUsers();
     User getUserByID(long ID);
+    User getUserByLogin(String login);
 }

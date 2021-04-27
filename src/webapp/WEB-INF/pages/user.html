@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<div align="right">
+    <form th:method="GET" th:action="@{/logout}">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
+<div align="center" th:object="${user}">
+    <table border="1px">
+        <tr>
+            <td>ID</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Возраст</td>
+        </tr>
+        <tr>
+            <td><p th:text="*{ID}"/></td>
+            <td><p th:text="*{name}"/></td>
+            <td><p th:text="*{lastName}"/></td>
+            <td><p th:text="*{age}"/></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

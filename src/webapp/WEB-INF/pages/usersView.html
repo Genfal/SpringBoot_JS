@@ -5,6 +5,11 @@
     <title>Users View</title>
 </head>
 <body>
+<div align="right">
+    <form th:method="GET" th:action="@{/logout}">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
 <div align="center">
     <form action="addUserForm">
         <button style="background: cyan">Добавить пользователя</button>
