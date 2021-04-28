@@ -2,16 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>AddUser</title>
+    <title>Registration</title>
 </head>
 <body>
-<div align="right">
-    <form th:method="GET" th:action="@{/logout}">
-        <button type="submit">Выйти</button>
-    </form>
-</div>
 <div align="center">
-    <form th:method="POST" th:action="@{/admin/addUser}" th:object="${user}">
+    <form th:method="POST" th:action="@{/registration}" th:object="${user}">
         <table border="1px">
             <tr>
                 <td>Имя</td>
@@ -38,7 +33,7 @@
                 <td><input type="checkbox" name="admin"></td>
             </tr>
         </table>
-        <button type="submit">Создать</button>
+        <button type="submit">Зарегистрироваться</button>
     </form>
 </div>
 </body>

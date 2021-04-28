@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/login").anonymous()
+                .antMatchers("/login", "/registrationForm", "/registration").anonymous()
                 .antMatchers("/*").access("hasAnyRole('ROLE_USER')")
                 .antMatchers("/admin/*").access("hasAnyRole('ROLE_ADMIN')")
                 .anyRequest().authenticated();

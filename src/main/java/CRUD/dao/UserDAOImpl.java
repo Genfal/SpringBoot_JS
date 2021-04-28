@@ -1,16 +1,12 @@
 package CRUD.dao;
 
-import CRUD.model.Role;
 import CRUD.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
@@ -21,7 +17,14 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public void remove(long ID) {
         User user = entityManager.find(User.class, ID);
-        entityManager.remove(user);
+        entityManager
+                .createNativeQuery("DELETE FROM USER_ROLES WHERE user_id = :ID")
+                .setParameter("ID", user.getID())
+                .executeUpdate();
+        entityManager
+                .createQuery("delete from User u where u.ID = :ID")
+                .setParameter("ID", ID)
+                .executeUpdate();
     }
 
     @Override

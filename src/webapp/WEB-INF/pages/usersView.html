@@ -11,7 +11,7 @@
     </form>
 </div>
 <div align="center">
-    <form action="addUserForm">
+    <form th:action="@{/admin/addUserForm}">
         <button style="background: cyan">Добавить пользователя</button>
     </form>
     <table border="1px" style="margin-top: 20px">
@@ -27,10 +27,10 @@
             <td><p th:text="${u.getLastName}"/></td>
             <td><p th:text="${u.getAge}"/></td>
             <td>
-                <form th:action="@{/editUserForm/{id}(id = ${u.getID})}">
+                <form th:action="@{/admin/editUserForm/{id}(id = ${u.getID})}">
                     <button style="background: greenyellow">Изменить пользователя</button>
                 </form>
-                <form th:method="DELETE" th:action="@{/removeUser/{id}(id = ${u.getID})}">
+                <form th:method="DELETE" th:action="@{/admin/removeUser/{id}(id = ${u.getID})}">
                     <button style="background: red">Удалить пользователя</button>
                 </form>
             </td>
