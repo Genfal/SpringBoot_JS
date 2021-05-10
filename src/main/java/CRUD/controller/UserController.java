@@ -36,12 +36,6 @@ public class UserController {
         return "registrationForm";
     }
 
-    @GetMapping(value = "/registrationFormError")
-    public String registrationFormError(Model model) {
-        model.addAttribute("user", new User());
-        return "registrationForm";
-    }
-
     @PostMapping(value = "/registration")
     public String registration(
             @ModelAttribute("user") User user,

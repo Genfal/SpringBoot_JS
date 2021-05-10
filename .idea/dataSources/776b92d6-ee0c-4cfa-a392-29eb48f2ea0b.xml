@@ -994,17 +994,21 @@ role_id</ColNames>
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <index id="306" parent="289" name="UK_2w508rvyi8sgdblxuyt74guc0">
+    <column id="306" parent="289" name="last_name">
+      <Position>7</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <index id="307" parent="289" name="UK_2w508rvyi8sgdblxuyt74guc0">
       <ColNames>Login</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="307" parent="289" name="PRIMARY">
+    <key id="308" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="308" parent="289" name="UK_2w508rvyi8sgdblxuyt74guc0">
+    <key id="309" parent="289" name="UK_2w508rvyi8sgdblxuyt74guc0">
       <ColNames>Login</ColNames>
       <UnderlyingIndexName>UK_2w508rvyi8sgdblxuyt74guc0</UnderlyingIndexName>
     </key>
