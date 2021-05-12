@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Service
 @Transactional(readOnly = true)
 public class RoleServiceImpl implements RoleService {
@@ -27,5 +29,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getRoleByName(String roleName) {
         return roleDAO.getRoleByName(roleName);
+    }
+
+    @Override
+    public Set<Role> getRoles() {
+        return roleDAO.getRoles();
     }
 }

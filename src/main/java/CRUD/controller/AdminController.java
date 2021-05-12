@@ -1,5 +1,6 @@
 package CRUD.controller;
 
+import CRUD.controller.utils.RoleCheck;
 import CRUD.model.Role;
 import CRUD.model.User;
 import CRUD.service.RoleService;
@@ -25,27 +26,37 @@ public class AdminController {
     @PostMapping(value = "/addUser")
     public String addUser(
             @ModelAttribute("user") User user,
-            @RequestParam(value = "admin", defaultValue = "false") boolean admin) {
+            @ModelAttribute("roles[]") RoleCheck roles) {
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getRoleByName("ROLE_USER"));
-        if (admin) {
-            roles.add(roleService.getRoleByName("ROLE_ADMIN"));
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(roleService.getRoleByName("ROLE_USER"));
+        for (String roleName : roles.getRoles()) {
+            roleSet.add(roleService.getRoleByName(roleName));
         }
-        user.setRoles(roles);
+        user.setRoles(roleSet);
         userService.add(user);
+        return "redirect:/admin/";
+    }
+
+    @PatchMapping(value = "/editUser")
+    public String editUser(
+            @ModelAttribute("user") User user,
+            @ModelAttribute("roles[]") RoleCheck roles) {
+
+        userService.userDeleteRoles(user.getID());
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(roleService.getRoleByName("ROLE_USER"));
+        for (String roleName : roles.getRoles()) {
+            roleSet.add(roleService.getRoleByName(roleName));
+        }
+        user.setRoles(roleSet);
+        userService.update(user);
         return "redirect:/admin/";
     }
 
     @DeleteMapping(value = "/removeUser/{id}")
     public String removeUser(@PathVariable(value = "id") long ID) {
         userService.remove(ID);
-        return "redirect:/admin/";
-    }
-
-    @PatchMapping(value = "/editUser")
-    public String editUser(@ModelAttribute("user") User user) {
-        userService.update(user);
         return "redirect:/admin/";
     }
 
@@ -57,6 +68,7 @@ public class AdminController {
 
     @GetMapping(value = "/addUserForm")
     public String addUserForm(Model model) {
+        model.addAttribute("roles", roleService.getRoles());
         model.addAttribute("user", new User());
         return "addUserForm";
     }
@@ -66,6 +78,7 @@ public class AdminController {
             @PathVariable("id") long ID,
             Model model) {
 
+        model.addAttribute("roles", roleService.getRoles());
         model.addAttribute("user", userService.getUserByID(ID));
         return "editUserForm";
     }

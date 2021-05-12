@@ -14,7 +14,10 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ID;
 
-    @Column(name = "Role")
+    @Column(name = "Name", unique = true)
+    private String name;
+
+    @Column(name = "Role", unique = true)
     private String role;
 
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -50,6 +53,14 @@ public class Role implements GrantedAuthority {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

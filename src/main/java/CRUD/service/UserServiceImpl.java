@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void userDeleteRoles(long ID) {
+        userDAO.userDeleteRoles(ID);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User getUserByID(long ID) {
         return userDAO.getUserByID(ID);

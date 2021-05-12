@@ -16,7 +16,6 @@
             <input type="hidden" th:field="*{ID}">
             <input type="hidden" th:field="*{login}">
             <input type="hidden" th:field="*{password}">
-            <input type="hidden" th:field="*{roles}">
             <tr>
                 <td>Имя</td>
                 <td><input type="text" placeholder="Введите имя" th:field="*{name}"></td>
@@ -29,6 +28,12 @@
                 <td>Возраст</td>
                 <td><input type="text" placeholder="Введите возраст" th:field="*{age}"></td>
             </tr>
+            <th:block th:each="role : ${roles}">
+                <tr>
+                    <td th:text="${role.name}"></td>
+                    <td><input type="checkbox" th:value="${role.role}" name="roles[]"></td>
+                </tr>
+            </th:block>
         </table>
         <button type="submit">Изменить</button>
     </form>

@@ -33,10 +33,12 @@
                 <td>Пароль</td>
                 <td><input type="text" placeholder="Введите возраст" th:field="*{password}"></td>
             </tr>
-            <tr>
-                <td>Администратор</td>
-                <td><input type="checkbox" name="admin"></td>
-            </tr>
+            <th:block th:each="role : ${roles}">
+                <tr>
+                    <td th:text="${role.name}"></td>
+                    <td><input type="checkbox" th:value="${role.role}" name="roles[]"></td>
+                </tr>
+            </th:block>
         </table>
         <button type="submit">Создать</button>
     </form>
