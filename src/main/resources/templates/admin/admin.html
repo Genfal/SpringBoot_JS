@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+</head>
+
+<!--Верхняя панель-->
+<header>
+    <div class="row" th:object="${currentUser}">
+        <div class="col" style="background-color: #202020; font-size: 25px; color: white">
+            <span style="padding-left: 15px"/> <b> <span th:text="*{email}"/> </b> with roles: <span
+                th:text="${currentUser.roleToString}"/>
+            <form th:method="POST" th:action="@{/logout}" style="float: right">
+                <button type="submit" style="background-color: transparent; border: 0; color: #808080;">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<body>
+<div style="width: 1920px; height: 922px;">
+
+    <div class="h-100 row">
+
+        <!--Группа кнопок слева-->
+        <div class="col-2" style="width: available">
+            <div class="nav flex-column nav-pills" aria-orientation="vertical" style="margin-top: 15px">
+                <a class="nav-link show active" data-toggle="pill" href="#ROLE_ADMIN"
+                   aria-selected="true">Администратор</a>
+                <a class="nav-link" data-toggle="pill" href="#ROLE_USER" aria-selected="true">Пользователь</a>
+            </div>
+        </div>
+
+        <!--Контейнер справа-->
+        <div class="col-10" style="background-color: #EEEEEE" id="content">
+            <div class="container-fluid">
+
+                <!--Таблица контента-->
+                <div class="tab-content">
+
+                    <!--Пользователь-->
+                    <div class="tab-pane fade" id="ROLE_USER">
+
+                        <!--Название страницы-->
+                        <div style="padding-left: 15px; padding-top: 15px">
+                            <p class="font-weight-bold" style="font-size: 50px">User information-page</p>
+                        </div>
+
+                        <!--Название таблицы-->
+                        <div class="container-fluid"
+                             style="background-color: white; border: 1px #AAAAAA solid; border-radius: 5px">
+
+                            <div class="row" style="background-color: #EEEEEE">
+                                <div class="col" style="border-bottom: 1px #AAAAAA solid; margin-top: 10px;">
+                                    <p class="font-weight-bold" style="font-size: 25px">About user</p>
+                                </div>
+                            </div>
+
+                            <!--Таблица-->
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Age</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:object="${currentUser}">
+                                            <tr>
+                                                <td th:text="*{ID}"></td>
+                                                <td th:text="*{name}"></td>
+                                                <td th:text="*{lastName}"></td>
+                                                <td th:text="*{age}"></td>
+                                                <td th:text="*{email}"></td>
+                                                <td th:text="${currentUser.roleToString}"></td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Конец пользователя-->
+
+
+                    <!--Администратор-->
+                    <div class="tab-pane fade show active" id="ROLE_ADMIN">
+
+                        <!--Название страницы-->
+                        <div style="padding-left: 15px; padding-top: 15px">
+                            <p class="font-weight-bold" style="font-size: 50px">Admin panel</p>
+                        </div>
+
+                        <!--Навигация по странице-->
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" data-toggle="tab" href="#UsersTable">Users table</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#NewUser">New user</a>
+                        </div>
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane fade show active" id="UsersTable">
+                                <!--Название таблицы-->
+                                <div class="container-fluid"
+                                     style="background-color: white; border: 1px #AAAAAA solid; border-radius: 5px">
+
+                                    <div class="row" style="background-color: #EEEEEE">
+                                        <div class="col" style="border-bottom: 1px #AAAAAA solid; margin-top: 10px;">
+                                            <p class="font-weight-bold" style="font-size: 25px">All users</p>
+                                        </div>
+                                    </div>
+
+                                    <!--Таблица-->
+                                    <div class="row" style="margin-top: 20px">
+                                        <div class="col">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Age</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <th:block th:each="user : ${users}">
+                                                    <tr>
+                                                        <td th:text="${user.getID}"></td>
+                                                        <td th:text="${user.getName}"></td>
+                                                        <td th:text="${user.LastName}"></td>
+                                                        <td th:text="${user.getAge}"></td>
+                                                        <td th:text="${user.getEmail}"></td>
+                                                        <td th:text="${user.roleToString}"></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info"
+                                                                    th:data-toggle="modal"
+                                                                    th:data-target="'#edit' + ${user.getID}">
+                                                                Edit
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <form>
+                                                                <button type="button" class="btn btn-danger"
+                                                                        th:data-toggle="modal"
+                                                                        th:data-target="'#delete' + ${user.getID}">
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                </th:block>
+                                            </table>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                            Добавление пользователя-->
+                            <div class="tab-pane fade" id="NewUser">
+                                <div class="container-fluid"
+                                     style="background-color: white; border: 1px #AAAAAA solid; border-radius: 5px">
+
+                                    <div class="row" style="background-color: #EEEEEE">
+                                        <div class="col" style="border-bottom: 1px #AAAAAA solid; margin-top: 10px;">
+                                            <p class="font-weight-bold" style="font-size: 25px">Add new user</p>
+                                        </div>
+                                    </div>
+
+                                    <form th:method="POST" th:action="@{/admin/addUser}" th:object="${new_user}"
+                                          style="margin-top: 10px">
+                                        <div class="container" align="center" style="width: 300px">
+                                            <p class="font-weight-bold"
+                                               style="font-size: 15px; margin-bottom: 0">First name</p>
+                                            <input class="form-control" type="text" th:field="*{name}"
+                                                   style="margin-bottom: 20px"/>
+
+                                            <p class="font-weight-bold"
+                                               style="font-size: 15px; margin-bottom: 0">Last name</p>
+                                            <input class="form-control" type="text" th:field="*{lastName}"
+                                                   style="margin-bottom: 20px"/>
+
+                                            <p class="font-weight-bold"
+                                               style="font-size: 15px; margin-bottom: 0">Age</p>
+                                            <input class="form-control" type="number" th:field="*{age}"
+                                                   style="margin-bottom: 20px"/>
+
+                                            <p class="font-weight-bold"
+                                               style="font-size: 15px; margin-bottom: 0">Email</p>
+                                            <input class="form-control" type="text" th:field="*{email}"
+                                                   style="margin-bottom: 20px"/>
+
+                                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">
+                                                Password</p>
+                                            <input class="form-control" type="password" th:field="*{password}"
+                                                   style="margin-bottom: 20px"/>
+
+                                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">
+                                                Role</p>
+                                            <select class="custom-select" size="2" name="role"
+                                                    style="margin-bottom: 20px">
+                                                <th:block th:each="role : ${roles}">
+                                                    <option th:text="${role.getName}" th:value="${role.getRole}"/>
+                                                </th:block>
+                                                <option value="ROLE_USER">Пользователь</option>
+                                            </select>
+
+                                            <button type="submit" class="btn btn-success" style="margin-bottom: 15px">
+                                                Add new user
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--                            Конец добавления пользователя-->
+                        </div>
+                        <!--Конец администратор-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Модалка изменения-->
+<th:block th:each="user : ${users}">
+    <form th:method="PATCH" th:action="@{/admin/editUser}">
+        <div class="modal fade" aria-hidden="true" th:id="'edit' + ${user.getID}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit user</h5>
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container" style="width: 250px" align="center">
+
+                            <div class="form-group">
+                                <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">ID</p>
+                                <input class="form-control" type="text" readonly th:value="${user.getID}"
+                                       name="ID"/>
+                            </div>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">First name</p>
+                            <input class="form-control" type="text" th:value="${user.getName}" name="name" style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Last name</p>
+                            <input class="form-control" type="text" th:value="${user.getLastName}" name="lastName"style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Age</p>
+                            <input class="form-control" type="number" th:value="${user.getAge}" name="age" style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Email</p>
+                            <input class="form-control" type="text" th:value="${user.getEmail}" name="email" style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Password</p>
+                            <input class="form-control" type="password" name="password" style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">
+                                Role</p>
+                            <select class="custom-select" size="2" name="role"
+                                    style="margin-bottom: 20px">
+                                <th:block th:each="role : ${roles}">
+                                    <option th:text="${role.getName}" th:value="${role.getRole}"/>
+                                </th:block>
+                                <option value="ROLE_USER">Пользователь</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</th:block>
+<!--Конец модалки изменения-->
+
+<!--Модалка удаления-->
+<th:block th:each="user : ${users}">
+    <div class="modal fade" aria-hidden="true" th:id="'delete' + ${user.getID}">
+        <form th:method="DELETE" th:action="@{/admin/removeUser/{id}(id = ${user.getID})}" th:object="${user}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit user</h5>
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container" style="width: 250px" align="center">
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">ID</p>
+                            <input class="form-control" type="text" readonly th:value="*{ID}"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">First name</p>
+                            <input class="form-control" type="text" readonly th:value="*{name}"
+                                   style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Last name</p>
+                            <input class="form-control" type="text" readonly th:value="*{lastName}"
+                                   style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Age</p>
+                            <input class="form-control" type="number" readonly th:value="*{age}"
+                                   style="margin-bottom: 20px"/>
+
+                            <p class="font-weight-bold" style="font-size: 15px; margin-bottom: 0">Email</p>
+                            <input class="form-control" type="text" readonly th:value="*{email}"
+                                   style="margin-bottom: 20px"/>
+
+                            <select class="custom-select" readonly size="2">
+                                <th:block th:each="role : *{roles}">
+                                    <option th:text="${role.getName}"/>
+                                </th:block>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</th:block>
+<!--Конец модалки удаления-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

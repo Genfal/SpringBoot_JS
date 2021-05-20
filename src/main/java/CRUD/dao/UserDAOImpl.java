@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -55,10 +54,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByLogin(String login) {
+    public User getUserByEmail(String email) {
         TypedQuery<User> userTypedQuery = entityManager
-                .createQuery("select u from User u where u.login = :login", User.class);
-        userTypedQuery.setParameter("login", login);
+                .createQuery("select u from User u where u.email = :email", User.class);
+        userTypedQuery.setParameter("email", email);
         return userTypedQuery.getSingleResult();
     }
 

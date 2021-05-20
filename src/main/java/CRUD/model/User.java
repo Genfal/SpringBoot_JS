@@ -24,8 +24,8 @@ public class User implements UserDetails {
     @Column(name = "Age")
     private int age;
 
-    @Column(name = "Login", unique = true)
-    private String login;
+    @Column(name = "Email", unique = true)
+    private String email;
 
     @Column(name = "Password")
     private String password;
@@ -41,11 +41,11 @@ public class User implements UserDetails {
 
     }
 
-    public User(String name, String lastName, int age, String login, String password, Set<Role> roles) {
+    public User(String name, String lastName, int age, String email, String password, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.roles = roles;
     }
@@ -82,12 +82,12 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -114,7 +114,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override
@@ -135,5 +135,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String roleToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Role role : roles) {
+            stringBuilder.append(role.getName()).append(" ");
+        }
+        return stringBuilder.toString();
     }
 }

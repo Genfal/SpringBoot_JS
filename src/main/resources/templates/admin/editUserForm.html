@@ -2,12 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>EditUser</title>
 </head>
 <body>
+<div align="right">
+    <form th:method="GET" th:action="@{/logout}">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
 <div align="center">
-    <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+    <form th:method="PATCH" th:action="@{/admin/editUser}" th:object="${user}">
         <table border="1px">
+            <input type="hidden" th:field="*{ID}">
+            <input type="hidden" th:field="*{email}">
+            <input type="hidden" th:field="*{password}">
             <tr>
                 <td>Имя</td>
                 <td><input type="text" placeholder="Введите имя" th:field="*{name}"></td>
@@ -20,20 +28,14 @@
                 <td>Возраст</td>
                 <td><input type="text" placeholder="Введите возраст" th:field="*{age}"></td>
             </tr>
-            <tr>
-                <td>Логин</td>
-                <td><input type="text" placeholder="Введите возраст" th:field="*{login}"></td>
-            </tr>
-            <tr>
-                <td>Пароль</td>
-                <td><input type="text" placeholder="Введите возраст" th:field="*{password}"></td>
-            </tr>
-            <tr>
-                <td>Администратор</td>
-                <td><input type="checkbox" name="admin"></td>
-            </tr>
+            <th:block th:each="role : ${roles}">
+                <tr>
+                    <td th:text="${role.name}"></td>
+                    <td><input type="checkbox" th:value="${role.role}" name="roles"></td>
+                </tr>
+            </th:block>
         </table>
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit">Изменить</button>
     </form>
 </div>
 </body>

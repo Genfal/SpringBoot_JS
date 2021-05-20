@@ -26,12 +26,12 @@
                 <td><input type="text" placeholder="Введите возраст" th:field="*{age}"></td>
             </tr>
             <tr>
-                <td>Логин</td>
-                <td><input type="text" placeholder="Введите возраст" th:field="*{login}"></td>
+                <td>Почта</td>
+                <td><input type="text" placeholder="Введите почту" th:field="*{email}"></td>
             </tr>
             <tr>
                 <td>Пароль</td>
-                <td><input type="text" placeholder="Введите возраст" th:field="*{password}"></td>
+                <td><input type="text" placeholder="Введите пароль" th:field="*{password}"></td>
             </tr>
             <th:block th:each="role : ${roles}">
                 <tr>

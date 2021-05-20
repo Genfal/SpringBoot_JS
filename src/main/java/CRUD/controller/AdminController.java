@@ -1,6 +1,5 @@
 package CRUD.controller;
 
-import CRUD.controller.utils.RoleCheck;
 import CRUD.model.Role;
 import CRUD.model.User;
 import CRUD.service.RoleService;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,13 +25,13 @@ public class AdminController {
 
     @PostMapping(value = "/addUser")
     public String addUser(
-            @ModelAttribute("user") User user,
-            @ModelAttribute("roles[]") RoleCheck roles) {
+            @ModelAttribute("new_user") User user,
+            @ModelAttribute("role") String role) {
 
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(roleService.getRoleByName("ROLE_USER"));
-        for (String roleName : roles.getRoles()) {
-            roleSet.add(roleService.getRoleByName(roleName));
+        if (!role.equals("ROLE_USER")) {
+            roleSet.add(roleService.getRoleByName(role));
         }
         user.setRoles(roleSet);
         userService.add(user);
@@ -40,14 +40,25 @@ public class AdminController {
 
     @PatchMapping(value = "/editUser")
     public String editUser(
-            @ModelAttribute("user") User user,
-            @ModelAttribute("roles[]") RoleCheck roles) {
+            @ModelAttribute("ID") String ID,
+            @ModelAttribute("name") String name,
+            @ModelAttribute("lastName") String lastName,
+            @ModelAttribute("age") String age,
+            @ModelAttribute("email") String email,
+            @ModelAttribute("password") String password,
+            @ModelAttribute("role") String role) {
 
+        User user = userService.getUserByID(Long.parseLong(ID));
         userService.userDeleteRoles(user.getID());
+        user.setName(name);
+        user.setLastName(lastName);
+        user.setAge(Integer.parseInt(age));
+        user.setEmail(email);
+        user.setPassword(password);
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(roleService.getRoleByName("ROLE_USER"));
-        for (String roleName : roles.getRoles()) {
-            roleSet.add(roleService.getRoleByName(roleName));
+        if (!role.equals("ROLE_USER")) {
+            roleSet.add(roleService.getRoleByName(role));
         }
         user.setRoles(roleSet);
         userService.update(user);
@@ -61,25 +72,11 @@ public class AdminController {
     }
 
     @GetMapping(value = "/")
-    public String usersView(Model model) {
+    public String usersView(Principal principal, Model model) {
+        model.addAttribute("currentUser", userService.getUserByEmail(principal.getName()));
         model.addAttribute("users", userService.listUsers());
-        return "usersView";
-    }
-
-    @GetMapping(value = "/addUserForm")
-    public String addUserForm(Model model) {
         model.addAttribute("roles", roleService.getRoles());
-        model.addAttribute("user", new User());
-        return "addUserForm";
-    }
-
-    @GetMapping(value = "/editUserForm/{id}")
-    public String editUserForm(
-            @PathVariable("id") long ID,
-            Model model) {
-
-        model.addAttribute("roles", roleService.getRoles());
-        model.addAttribute("user", userService.getUserByID(ID));
-        return "editUserForm";
+        model.addAttribute("new_user", new User());
+        return "admin/admin";
     }
 }
