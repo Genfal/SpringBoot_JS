@@ -5,6 +5,7 @@ import CRUD.model.User;
 import CRUD.service.RoleService;
 import CRUD.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +18,18 @@ import java.util.Set;
 @RequestMapping(value = "/admin")
 public class AdminController {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private RoleService roleService;
+
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostMapping(value = "/addUser")
     public String addUser(
@@ -33,6 +41,7 @@ public class AdminController {
         if (!role.equals("ROLE_USER")) {
             roleSet.add(roleService.getRoleByName(role));
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roleSet);
         userService.add(user);
         return "redirect:/admin/";
@@ -54,7 +63,7 @@ public class AdminController {
         user.setLastName(lastName);
         user.setAge(Integer.parseInt(age));
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(roleService.getRoleByName("ROLE_USER"));
         if (!role.equals("ROLE_USER")) {

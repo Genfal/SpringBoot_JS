@@ -1,7 +1,10 @@
 package CRUD.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -10,6 +13,9 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
+    @Transient
+    private static PasswordEncoder passwordEncoder;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -143,5 +149,9 @@ public class User implements UserDetails {
             stringBuilder.append(role.getName()).append(" ");
         }
         return stringBuilder.toString();
+    }
+
+    @Autowired
+    private static void PasswordEncoder() {
     }
 }

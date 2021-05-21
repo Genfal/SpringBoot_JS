@@ -218,7 +218,7 @@
                                                 <th:block th:each="role : ${roles}">
                                                     <option th:text="${role.getName}" th:value="${role.getRole}"/>
                                                 </th:block>
-                                                <option value="ROLE_USER">Пользователь</option>
+                                                <option selected value="ROLE_USER">Пользователь</option>
                                             </select>
 
                                             <button type="submit" class="btn btn-success" style="margin-bottom: 15px">
@@ -280,7 +280,7 @@
                                 <th:block th:each="role : ${roles}">
                                     <option th:text="${role.getName}" th:value="${role.getRole}"/>
                                 </th:block>
-                                <option value="ROLE_USER">Пользователь</option>
+                                <option selected value="ROLE_USER">Пользователь</option>
                             </select>
                         </div>
                     </div>

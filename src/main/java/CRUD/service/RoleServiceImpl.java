@@ -12,8 +12,12 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
     private RoleDAO roleDAO;
+
+    @Autowired
+    public RoleServiceImpl(RoleDAO roleDAO) {
+        this.roleDAO = roleDAO;
+    }
 
     @Override
     @Transactional(readOnly = false)

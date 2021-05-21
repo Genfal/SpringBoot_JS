@@ -3,6 +3,7 @@ package CRUD.service;
 import CRUD.dao.UserDAO;
 import CRUD.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,8 +13,12 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService{
 
-    @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public void remove(long ID) {
