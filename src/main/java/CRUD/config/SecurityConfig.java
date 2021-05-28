@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -37,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.formLogin()
-                .loginPage("/")
+                .loginPage("/login")
                 .successHandler(new SuccessUserHandler())
-                .loginProcessingUrl("/")
+                .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll();
@@ -47,13 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/login");
 
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/newUser").anonymous()
                 .antMatchers("/*").access("hasAnyRole('ROLE_USER')")
-                .antMatchers("/admin/*").access("hasAnyRole('ROLE_ADMIN')")
                 .anyRequest().authenticated();
     }
 

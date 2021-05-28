@@ -3,7 +3,6 @@ package CRUD.service;
 import CRUD.dao.UserDAO;
 import CRUD.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,11 +32,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public void update(User user) {
         userDAO.update(user);
-    }
-
-    @Override
-    public void userDeleteRoles(long ID) {
-        userDAO.userDeleteRoles(ID);
     }
 
     @Override

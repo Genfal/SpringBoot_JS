@@ -1,5 +1,6 @@
 package CRUD.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "Role", unique = true)
     private String role;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users;
 

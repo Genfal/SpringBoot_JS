@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class SecurityController {
+public class BaseController {
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/login")
     public String login() {
         return "login";
     }
@@ -16,4 +16,8 @@ public class SecurityController {
         return "redirect:/login";
     }
 
+    @GetMapping(value = "/")
+    public String startPage() {
+        return "mainPage";
+    }
 }

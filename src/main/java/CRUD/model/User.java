@@ -1,10 +1,7 @@
 package CRUD.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -13,9 +10,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-
-    @Transient
-    private static PasswordEncoder passwordEncoder;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +30,7 @@ public class User implements UserDetails {
     @Column(name = "Password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -141,17 +135,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String roleToString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Role role : roles) {
-            stringBuilder.append(role.getName()).append(" ");
-        }
-        return stringBuilder.toString();
-    }
-
-    @Autowired
-    private static void PasswordEncoder() {
     }
 }
